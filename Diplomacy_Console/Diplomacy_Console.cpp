@@ -29,6 +29,7 @@ void preGameSetUp(int numOfPlayers) {
 	std::cout << num << std::endl;
 	*/
 	std::string nameinput;
+
 	if (numOfPlayers = 7)
 	{
 		std::cout << "Starting Diplomacy with 7 players.\n";

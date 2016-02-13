@@ -17,6 +17,7 @@ Country::~Country()
 //Use this constructor to create a country at the beginning of the game
 Country::Country(ePlayerCountry A, std::string nameinput)
 {
+
 	//Set the number of units in the start of the set up
 	SetNumOfUnits(A);
 	switch (A) {
@@ -134,13 +135,15 @@ void Country::BuildNewUnit(ePlayerCountry A, eLocation B, eUnitType C)
 	//Create the unit
 	do
 	{
-		countryUnits[i].unitLocation = B;
-		countryUnits[i].unitType = C;
-		countryUnits[i].unitLocationType = GetLocationType(B);
+		if (countryUnits[i].unitLocation == eBLANK)
+		{
+			countryUnits[i].unitLocation = B;
+			countryUnits[i].unitType = C;
+			countryUnits[i].unitLocationType = GetLocationType(B);
+		}
+		i++;
 	} while (i <= GetNumOfUnits());
 
-	//Increment the pointer to the next blank unit line
-	//ptr_Unit++;
 }
 
 void Country::SetPlayerCountry(ePlayerCountry A)

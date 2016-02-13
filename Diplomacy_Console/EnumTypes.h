@@ -1,6 +1,7 @@
 #pragma once
 enum eLocation
 {
+	eBLANK,
 	eLon, eYor, eWal, eEdi, eLvp, eCly, //England
 	eNrg, eNAt, eMid, eIri, eEng, eNth, eHel, eSka, eGoL, eWes, eTyn, eIon, eAdr, eAeg, eEas, eBla, eBal, eBar, eBot, //Water
 	eDen, eHol, eBel, eNwy, eSwe, ePor, eSpa, eNaf, eTun, eAlb, eSer, eBul, eRum, eGre, eFin, //Neutral
