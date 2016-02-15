@@ -27,6 +27,7 @@ public:
 	//Get Functions
 	ePlayerCountry GetPlayerCountry(void);
 	inline int GetNumOfUnits(void);
+	void GetAllUnitsInfo(void);
 
 	//Set Functions
 	void SetPlayerCountry(ePlayerCountry);

@@ -182,6 +182,7 @@ inline int Country::GetNumOfUnits()
 	return numOfUnits;
 }
 
+
 void Country::SetUnitLocation(eLocation A)
 {
 
@@ -213,3 +214,4 @@ eLocationType Country::GetLocationType(eLocation A)
 		return eCoastal;
 	}
 }
+
