@@ -67,11 +67,13 @@ int main()
 	std::string input;
 	eTurn currentTurn = Spring1901;
 
+	preGameSetUp(7);
+
 	//start game loop now
-	while (1) {		
-		std::cout << currentTurn;
-		
-		std::cout << "\nWhen ready please type your country name to enter commands: ";
+	while (1) {
+		system("cls"); //Not ideal but works for debug output now
+
+		std::cout << "Type 'Exit' when ready to quit.\nWhen ready please type your country name to enter commands: ";
 		std::cin >> input;
 
 		if (input == "exit" || input == "Exit" || input == "EXIT")
@@ -79,18 +81,43 @@ int main()
 			std::cout << "Exiting Diplomacy\n Goodbye!";
 			break;
 		}
-		if (input == "Austria" || input == "Austria")
+		if (input == "Austria" || input == "austria")
 		{
 			//do Austria's commands
+			std::cout << Austria.GetNumOfUnits();
 		}
 		else if (input == "England" || input == "england")
 		{
 			//do England's commands
 		}
+		else if (input == "France" || input == "france")
+		{
+			//do France's commands
+		}
+		else if (input == "Germany" || input == "germany")
+		{
+			//do Germany's commands
+		}
+		else if (input == "Italy" || input == "italy")
+		{
+			//do Italy's commands
+		}
+		else if (input == "Russia" || input == "russia")
+		{
+			//do Russia's commands
+			std::cout << Russia.GetNumOfUnits();
+		}
+		else if (input == "Turkey" || input == "turkey")
+		{
+			//do Turkey's commands
+		}
 		else
 		{
 			std::cout << "Not understood. Please try again.";
+
 		}
+
+		//system("cls"); //Not ideal but works to clear the console screen for now
 	}
 
     return 0;

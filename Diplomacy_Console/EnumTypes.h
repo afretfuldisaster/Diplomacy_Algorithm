@@ -42,3 +42,10 @@ enum ePlayerCountry
 	eRussia,
 	eTurkey
 };
+
+enum eVia
+{
+	eViaLand,
+	eViaSea,
+	eViaConvoy
+};

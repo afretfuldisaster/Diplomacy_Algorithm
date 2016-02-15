@@ -5,19 +5,16 @@ class Country
 {
 
 private:
+	int numOfUnits;
+	ePlayerCountry pCountry; //Which country are we talking about?
+
 	struct sUnitInfo {
 		eUnitType unitType;
 		eLocation unitLocation;
 		eLocationType unitLocationType;
-	} countryUnits[18];
-	
-	struct sCommands {
-		
-	};
-
-	//vector<sUnits> countryUnits(18);
-	int numOfUnits;
-	ePlayerCountry pCountry; //Which country are we talking about?
+		eLocation unitTo;
+		eVia unitVia;
+	} countryUnits[18]; //18 is max number of units
 
 public:
 	//Variables
@@ -29,12 +26,12 @@ public:
 
 	//Get Functions
 	ePlayerCountry GetPlayerCountry(void);
-	int GetNumOfUnits(void);
+	inline int GetNumOfUnits(void);
 
 	//Set Functions
 	void SetPlayerCountry(ePlayerCountry);
 	void SetUnitLocation(eLocation);
-	void SetNumOfUnits(ePlayerCountry);
+	void SetNumOfUnits(int);
 
 	//Special Functions
 	void BuildNewUnit(ePlayerCountry, eLocation, eUnitType);

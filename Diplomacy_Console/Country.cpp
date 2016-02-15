@@ -19,7 +19,7 @@ Country::Country(ePlayerCountry A, std::string nameinput)
 {
 
 	//Set the number of units in the start of the set up
-	SetNumOfUnits(A);
+	SetNumOfUnits(0);
 	switch (A) {
 		//Set up all the starting units using the BuildNewUnit interface	
 	case eAustria:
@@ -75,8 +75,8 @@ Country::Country(ePlayerCountry A, std::string nameinput)
 */
 void Country::BuildNewUnit(ePlayerCountry A, eLocation B, eUnitType C) 
 {
-	int i = 0;
-	//is the location allowable to be built at?
+	int i = GetNumOfUnits();
+	//is the location allowable to be built at for that country
 	switch (A)
 	{
 	case eAustria:
@@ -108,7 +108,7 @@ void Country::BuildNewUnit(ePlayerCountry A, eLocation B, eUnitType C)
 			return;
 		}
 	case eItaly:
-		if (B == eVen || B == eRom || B == eVen) break;
+		if (B == eVen || B == eRom || B == eNap) break;
 		else
 		{
 			std::cout << "Build location not allowed.";
@@ -131,9 +131,21 @@ void Country::BuildNewUnit(ePlayerCountry A, eLocation B, eUnitType C)
 	default:
 		break;
 	}
-	//Is the unit type allowable to be built there?
-	//Create the unit
-	do
+	//Is the unit type allowable to be built there based on type and location?
+	eLocationType temp = GetLocationType(B);
+	if ((temp == eLand) && (C != eArmy))
+	{
+		//ERROR!
+		std::cout << "You cannot build a Fleet on dry land!";
+		return;
+	}
+	else if ((temp == eSea) && (C != eFleet))
+	{
+		//ERROR!
+		std::cout << "You cannot build an Army in the sea!";
+		return;
+	}
+	else //Create the unit
 	{
 		if (countryUnits[i].unitLocation == eBLANK)
 		{
@@ -142,8 +154,8 @@ void Country::BuildNewUnit(ePlayerCountry A, eLocation B, eUnitType C)
 			countryUnits[i].unitLocationType = GetLocationType(B);
 		}
 		i++;
-	} while (i <= GetNumOfUnits());
-
+		SetNumOfUnits(i);
+	}
 }
 
 void Country::SetPlayerCountry(ePlayerCountry A)
@@ -160,13 +172,12 @@ ePlayerCountry Country::GetPlayerCountry()
 	The Build and Destroy Unit functions will increment or decrement the
 	number of units from their respective functions
 */
-void Country::SetNumOfUnits(ePlayerCountry A)
+void Country::SetNumOfUnits(int A)
 {
-	if(A != eRussia) numOfUnits = 3;
-	else numOfUnits = 4;
+	numOfUnits = A;
 }
 
-int Country::GetNumOfUnits()
+inline int Country::GetNumOfUnits()
 {
 	return numOfUnits;
 }
@@ -178,7 +189,8 @@ void Country::SetUnitLocation(eLocation A)
 
 void Country::DestroyUnit(ePlayerCountry A, eLocation B)
 {
-
+	//Destroy is going to be a larger issue... This is because of the need to be able to destroy
+	//a unit in the middle of the array list and restructure the array for now.
 }
 
 eLocationType Country::GetLocationType(eLocation A)
