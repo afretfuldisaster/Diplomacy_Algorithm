@@ -206,12 +206,6 @@ inline void Country::PrintLocAsString(eLocation A)
 {
 	switch (A)
 	{
-	case eVie:
-		std::cout << "Vienna";
-		break;
-	case eTri:
-		std::cout << "Trieste";
-		break;
 	case eAdr:
 		std::cout << "Adriatic Sea";
 		break;
@@ -284,11 +278,155 @@ inline void Country::PrintLocAsString(eLocation A)
 	case eFin:
 		std::cout << "Finland";
 		break;
+	case eGal:
+		std::cout << "Galatia";
+		break;
+	case eGas:
+		std::cout << "Gascony";
+		break;
+	case eGoL:
+		std::cout << "Gulf of Lyon";
+		break;
+	case eGre:
+		std::cout << "Greece";
+		break;
+	case eHel:
+		std::cout << "Helgoland Bight";
+		break;
+	case eHol:
+		std::cout << "Holland";
+		break;
+	case eIon:
+		std::cout << "Ionian Sea";
+		break;
+	case eIri:
+		std::cout << "Irish Sea";
+		break;
+	case eKie:
+		std::cout << "Kiel";
+		break;
+	case eLon:
+		std::cout << "London";
+		break;
+	case eLvn:
+		std::cout << "Livonia";
+		break;
+	case eLvp:
+		std::cout << "Liverpool";
+		break;
+	case eMar:
+		std::cout << "Marseille";
+		break;
+	case eMid:
+		std::cout << "Mid-Atlantic Ocean";
+		break;
+	case eMos:
+		std::cout << "Moscow";
+		break;
+	case eMun:
+		std::cout << "Munich";
+		break;
+	case eNaf:
+		std::cout << "North Africa";
+		break;
+	case eNap:
+		std::cout << "Naples";
+		break;
+	case eNAt:
+		std::cout << "North Atlantic";
+		break;
+	case ePar:
+		std::cout << "Paris";
+		break;
+	case ePic:
+		std::cout << "Picardy";
+		break;
+	case ePie:
+		std::cout << "Piedmont";
+		break;
+	case ePor:
+		std::cout << "Portugal";
+		break;
+	case ePru:
+		std::cout << "Prussia";
+		break;
+	case eRom:
+		std::cout << "Rome";
+		break;
+	case eRuh:
+		std::cout << "Ruhr";
+		break;
+	case eRum:
+		std::cout << "Rumania";
+		break;
+	case eSer:
+		std::cout << "Serbia";
+		break;
+	case eSev:
+		std::cout << "Sevastopol";
+		break;
+	case eSil:
+		std::cout << "Silesia";
+		break;
+	case eSka:
+		std::cout << "Skagerrak";
+		break;
+	case eSmy:
+		std::cout << "Smryna";
+		break;
+	case eSpa:
+		std::cout << "Spain";
+		break;
+	case eStP:
+		std::cout << "St Petersburg";
+		break;
+	case eSwe:
+		std::cout << "Sweden";
+		break;
+	case eSyr:
+		std::cout << "Syria";
+		break;
+	case eTri:
+		std::cout << "Trieste";
+		break;
+	case eTun:
+		std::cout << "Tunis";
+		break;
+	case eTus:
+		std::cout << "Tuscany";
+		break;
+	case eTyn:
+		std::cout << "Tyrbennian Sea";
+		break;
+	case eTyr:
+		std::cout << "Tyrolia";
+		break;
+	case eUkr:
+		std::cout << "Ukraine";
+		break;
+	case eVie:
+		std::cout << "Vienna";
+		break;
+	case eVen:
+		std::cout << "Venice";
+		break;
+	case eWal:
+		std::cout << "Wales";
+		break;
+	case eWar:
+		std::cout << "Warsaw";
+		break;
+	case eWes:
+		std::cout << "Western Mediterranean";
+		break;
+	case eYor:
+		std::cout << "York";
+		break;
 	default:
 		std::cout << "INVALID"; // For debugging purposes only right now
 		break;
 	}
-	
+
 }
 
 inline void Country::PrintUTypeAsString(eUnitType A)
