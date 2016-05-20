@@ -76,7 +76,7 @@ int main()
 {
 	int num, temp;
 	eUnitCommand uCom;
-	eLocation uLoc;
+	eLocation uLoc, uNewLoc;
 	std::string input, input2, input3;
 	eTurn currentTurn = Spring1901;
 
@@ -120,6 +120,13 @@ int main()
 				case eHold:
 					break;
 				case eMove:
+					std::cout << "Where would you like to move this unit? ";
+					std::cin >> input2;
+					
+					//convert input2 to eLocation
+
+					//Set the unit's move command
+					//Austria.SetUnitMoveTo(uLoc, uNewLoc, eArmy);
 					break;
 				case eSupportHold:
 					break;

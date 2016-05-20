@@ -452,8 +452,24 @@ void Country::SetUnitLocation(eLocation A)
 
 }
 
-void Country::SetUnitMoveTo(eLocation current, eLocation next, eUnitType unit)
+/*
+Function:	SetUnitCommands
+Parameters:	
+Purpose:	When the command is to Hold, set the command to hold
+Overloaded:	Y
+*/
+void Country::SetUnitCommands(int unitNum, eLocation A, eUnitCommand B)
 {
+	countryUnits[unitNum].unitCommand = B;
+}
+
+/*
+Function:	SetUnitCommands
+Purpose:	When the command is to Move, set the desired destination location
+*/
+void Country::SetUnitCommands(int unitNum, eLocation A, eUnitCommand B, eLocation next)
+{
+	countryUnits[unitNum].unitCommand = B;
 
 }
 
