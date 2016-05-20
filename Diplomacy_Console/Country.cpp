@@ -176,6 +176,8 @@ ePlayerCountry Country::GetPlayerCountry()
 	return pCountry;
 }
 
+inline eLocation Country::ConvertToELocation(int A) { return countryUnits[A].unitLocation; }
+
 /* 
 	This is only called at the creation of the game.
 	The Build and Destroy Unit functions will increment or decrement the
@@ -195,6 +197,7 @@ void Country::PrintAllUnitsInfo(int n)
 {
 	for (int i = 0; i < n; i++)
 	{
+		std::cout << " (" << i << ") ";
 		PrintUTypeAsString(countryUnits[i].unitType);
 		std::cout << " ";
 		PrintLocAsString(countryUnits[i].unitLocation);
@@ -445,6 +448,11 @@ inline void Country::PrintUTypeAsString(eUnitType A)
 }
 
 void Country::SetUnitLocation(eLocation A)
+{
+
+}
+
+void Country::SetUnitMoveTo(eLocation current, eLocation next, eUnitType unit)
 {
 
 }

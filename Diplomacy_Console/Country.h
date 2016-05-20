@@ -13,7 +13,7 @@ private:
 		eLocation unitLocation;
 		eLocationType unitLocationType;
 		eLocation unitTo;
-		eVia unitVia;
+		eUnitVia unitVia;
 	} countryUnits[18]; //18 is max number of units
 
 public:
@@ -33,6 +33,7 @@ public:
 	void SetPlayerCountry(ePlayerCountry);
 	void SetUnitLocation(eLocation);
 	void SetNumOfUnits(int);
+	void SetUnitMoveTo(eLocation, eLocation, eUnitType);
 
 	//Special Functions
 	void BuildNewUnit(ePlayerCountry, eLocation, eUnitType);
@@ -40,4 +41,5 @@ public:
 	inline void PrintLocAsString(eLocation);
 	inline void PrintUTypeAsString(eUnitType);
 	eLocationType GetLocationType(eLocation A);
+	inline eLocation ConvertToELocation(int);
 };

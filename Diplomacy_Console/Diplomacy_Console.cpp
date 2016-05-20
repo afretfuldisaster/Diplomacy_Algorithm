@@ -75,12 +75,15 @@ void preGameSetUp(int numOfPlayers) {
 int main()
 {
 	int num, temp;
+	eUnitCommand uCom;
+	eLocation uLoc;
 	std::string input, input2, input3;
 	eTurn currentTurn = Spring1901;
 
 	preGameSetUp(7);
 
 	system("cls"); //Not ideal but works for debug output now
+	temp = 0;
 
 	//start game loop now
 	while (1) {
@@ -95,14 +98,41 @@ int main()
 		if (input == "Austria" || input == "austria")
 		{
 			//Output Austria's units and locations
-			temp = Austria.GetNumOfUnits();
-			Austria.PrintAllUnitsInfo(temp);
-			std::cout << "Which unit would you like to command?";
+			num = Austria.GetNumOfUnits();
+			Austria.PrintAllUnitsInfo(num);
+			std::cout << "Which unit would you like to command? ";
 			std::cin >> input2;
+			temp = std::stoi(input2, nullptr, 10);
+			uLoc = Austria.ConvertToELocation(temp);
+
 			//Act on that input -- how?
-			std::cout << "What is that unit's orders?";
+			std::cout << "What is that unit's order? ";
+			std::cout << "\n (1) Hold\n (2) Move/Attack\n (3) Support Hold\n (4) Support Move\n (5) Convoy\n";
 			std::cin >> input3;
-			//Act on that input -- how?
+
+			//Convert the input from a string to an integer
+			temp = std::stoi(input3, nullptr, 10);
+			uCom = (eUnitCommand) temp--;
+
+			//Act on that input
+			switch (uCom)
+			{
+				case eHold:
+					break;
+				case eMove:
+					break;
+				case eSupportHold:
+					break;
+				case eSupportMove:
+					break;
+				case eConvoy:
+					break;
+				default:
+					break;
+			}
+
+			//Process that input now that enums are defined based on user input.
+
 		}
 		else if (input == "England" || input == "england")
 		{
