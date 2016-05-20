@@ -1,6 +1,9 @@
 /*
 Class Name: Country
 Purpose:	The purpose of this class is to hold all the information for a Country throughout the game.
+Public Variables:
+	
+Private Variables:	
 */
 #include "stdafx.h"
 #include <iostream>
@@ -147,12 +150,18 @@ void Country::BuildNewUnit(ePlayerCountry A, eLocation B, eUnitType C)
 	}
 	else //Create the unit
 	{
-		if (countryUnits[i].unitLocation == eBLANK)
+		/*
+		if (countryUnits[i].unitLocation == eBLANK) //This line is never true... Thus doesn't create the stuff
 		{
 			countryUnits[i].unitLocation = B;
 			countryUnits[i].unitType = C;
 			countryUnits[i].unitLocationType = GetLocationType(B);
 		}
+		*/
+		countryUnits[i].unitLocation = B;
+		countryUnits[i].unitType = C;
+		countryUnits[i].unitLocationType = GetLocationType(B);
+
 		i++;
 		SetNumOfUnits(i);
 	}
@@ -182,6 +191,120 @@ inline int Country::GetNumOfUnits()
 	return numOfUnits;
 }
 
+void Country::PrintAllUnitsInfo(int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		PrintUTypeAsString(countryUnits[i].unitType);
+		std::cout << " ";
+		PrintLocAsString(countryUnits[i].unitLocation);
+		std::cout<< std::endl;
+	}
+}
+
+inline void Country::PrintLocAsString(eLocation A)
+{
+	switch (A)
+	{
+	case eVie:
+		std::cout << "Vienna";
+		break;
+	case eTri:
+		std::cout << "Trieste";
+		break;
+	case eAdr:
+		std::cout << "Adriatic Sea";
+		break;
+	case eAeg:
+		std::cout << "Aegian Sea";
+		break;
+	case eAlb:
+		std::cout << "Albania";
+		break;
+	case eAnk:
+		std::cout << "Ankara";
+		break;
+	case eApu:
+		std::cout << "Apu";
+		break;
+	case eArm:
+		std::cout << "Armenia";
+		break;
+	case eBal:
+		std::cout << "Baltic Sea";
+		break;
+	case eBar:
+		std::cout << "Barents Sea";
+		break;
+	case eBel:
+		std::cout << "Belgium";
+		break;
+	case eBer:
+		std::cout << "Berlin";
+		break;
+	case eBla:
+		std::cout << "Black Sea";
+		break;
+	case eBoh:
+		std::cout << "Bohemia";
+		break;
+	case eBot:
+		std::cout << "Gulf of Bothnia";
+		break;
+	case eBre:
+		std::cout << "Brest";
+		break;
+	case eBud:
+		std::cout << "Budapest";
+		break;
+	case eBul:
+		std::cout << "Bulgaria";
+		break;
+	case eBur:
+		std::cout << "Burgundy";
+		break;
+	case eCly:
+		std::cout << "Clyde";
+		break;
+	case eCon:
+		std::cout << "Constantinople";
+		break;
+	case eDen:
+		std::cout << "Denmark";
+		break;
+	case eEas:
+		std::cout << "Eastern Mediterranean Sea";
+		break;
+	case eEdi:
+		std::cout << "Edinburgh";
+		break;
+	case eEng:
+		std::cout << "English Channel";
+		break;
+	case eFin:
+		std::cout << "Finland";
+		break;
+	default:
+		std::cout << "INVALID"; // For debugging purposes only right now
+		break;
+	}
+	
+}
+
+inline void Country::PrintUTypeAsString(eUnitType A)
+{
+	switch (A)
+	{
+	case eArmy:
+		std::cout << "Army";
+		break;
+	case eFleet:
+		std::cout << "Fleet";
+		break;
+	default:
+		break;
+	}
+}
 
 void Country::SetUnitLocation(eLocation A)
 {

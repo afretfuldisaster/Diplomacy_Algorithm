@@ -27,7 +27,7 @@ public:
 	//Get Functions
 	ePlayerCountry GetPlayerCountry(void);
 	inline int GetNumOfUnits(void);
-	void GetAllUnitsInfo(void);
+	void PrintAllUnitsInfo(int);
 
 	//Set Functions
 	void SetPlayerCountry(ePlayerCountry);
@@ -37,5 +37,7 @@ public:
 	//Special Functions
 	void BuildNewUnit(ePlayerCountry, eLocation, eUnitType);
 	void DestroyUnit(ePlayerCountry, eLocation);
+	inline void PrintLocAsString(eLocation);
+	inline void PrintUTypeAsString(eUnitType);
 	eLocationType GetLocationType(eLocation A);
 };

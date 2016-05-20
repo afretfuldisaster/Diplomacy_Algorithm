@@ -17,20 +17,10 @@ Country Russia;
 Country Turkey;
 
 void preGameSetUp(int numOfPlayers) {
-	/*
-	Country Austria = Country(eAustria, "Daniel");
-	std::cout << "Austria:\n";
-	num = Austria.GetNumOfUnits();
-	std::cout << num << std::endl;
-	//or do this:
-	Country *Russia = new Country(eRussia, "Kate");
-	std::cout << "Russia:\n";
-	num = Russia -> GetNumOfUnits();
-	std::cout << num << std::endl;
-	*/
+
 	std::string nameinput;
 
-	if (numOfPlayers = 7)
+	if (numOfPlayers == 7)
 	{
 		std::cout << "Starting Diplomacy with 7 players.\n";
 		std::cout << "Please enter the Austrian Leader's name: ";
@@ -55,24 +45,45 @@ void preGameSetUp(int numOfPlayers) {
 		std::cin >> nameinput;
 		Turkey = Country(eTurkey, nameinput);
 	}
+	if (numOfPlayers == 6)
+	{
+		//6 players
+	}
+	if (numOfPlayers == 5)
+	{
+		//5 players
+	}
+	if (numOfPlayers == 4)
+	{
+		//4 players
+	}
+	if (numOfPlayers == 3)
+	{
+		//3 players
+	}
+	if (numOfPlayers == 2)
+	{
+		//2 players
+	}
 	else
 	{
 		//Do nothing for now. Always pass 7 for the time being.
+		// 1 player? 
 	}
 }
 
 int main()
 {
-	int num;
-	std::string input;
+	int num, temp;
+	std::string input, input2, input3;
 	eTurn currentTurn = Spring1901;
 
 	preGameSetUp(7);
 
+	system("cls"); //Not ideal but works for debug output now
+
 	//start game loop now
 	while (1) {
-		system("cls"); //Not ideal but works for debug output now
-
 		std::cout << "Type 'Exit' when ready to quit.\nWhen ready please type your country name to enter commands: ";
 		std::cin >> input;
 
@@ -83,12 +94,21 @@ int main()
 		}
 		if (input == "Austria" || input == "austria")
 		{
-			//do Austria's commands
-			std::cout << Austria.GetNumOfUnits();
+			//Output Austria's units and locations
+			temp = Austria.GetNumOfUnits();
+			Austria.PrintAllUnitsInfo(temp);
+			std::cout << "Which unit would you like to command?";
+			std::cin >> input2;
+			//Act on that input -- how?
+			std::cout << "What is that unit's orders?";
+			std::cin >> input3;
+			//Act on that input -- how?
 		}
 		else if (input == "England" || input == "england")
 		{
-			//do England's commands
+			//Output England's units and locations
+			temp = England.GetNumOfUnits();
+			England.PrintAllUnitsInfo(temp);
 		}
 		else if (input == "France" || input == "france")
 		{
@@ -113,7 +133,7 @@ int main()
 		}
 		else
 		{
-			std::cout << "Not understood. Please try again.";
+			std::cout << "Input not understood. Please try again.";
 
 		}
 
