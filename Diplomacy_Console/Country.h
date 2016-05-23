@@ -29,6 +29,7 @@ public:
 	ePlayerCountry GetPlayerCountry(void);
 	inline int GetNumOfUnits(void);
 	void PrintAllUnitsInfo(int);
+	inline eUnitType GetUnitType(int);
 
 	//Set Functions
 	void SetPlayerCountry(ePlayerCountry);
@@ -45,4 +46,6 @@ public:
 	inline void PrintUTypeAsString(eUnitType);
 	eLocationType GetLocationType(eLocation A);
 	inline eLocation ConvertToELocation(int);
+	bool IsMoveLegal(int, eLocation, eUnitCommand, eLocation);
+	bool DoLocationsTouch(eLocation, eLocation);
 };

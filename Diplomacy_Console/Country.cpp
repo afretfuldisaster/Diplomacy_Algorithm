@@ -193,6 +193,9 @@ inline int Country::GetNumOfUnits()
 	return numOfUnits;
 }
 
+inline eUnitType Country::GetUnitType(int uNum) { return countryUnits[uNum].unitType; }
+
+
 void Country::PrintAllUnitsInfo(int n)
 {
 	for (int i = 0; i < n; i++)
@@ -469,7 +472,34 @@ Purpose:	When the command is to Move, set the desired destination location
 */
 void Country::SetUnitCommands(int unitNum, eLocation A, eUnitCommand B, eLocation next)
 {
+	bool result = false;
 	countryUnits[unitNum].unitCommand = B;
+	result = IsMoveLegal(unitNum, A, B, next);
+	if (result == true)	countryUnits[unitNum].unitTo = next;
+	else
+	{
+		std::cout << "Move is not legal!";
+	}
+	
+}
+
+bool Country::IsMoveLegal(int unitNum, eLocation A, eUnitCommand B, eLocation next)
+{
+	eLocationType from, to;
+	eUnitType unit;
+	bool result;
+
+	unit = GetUnitType(unitNum);
+	from = GetLocationType(A);
+	to = GetLocationType(next);
+
+	if (unit != eFleet && to == eSea) return false; //army move to sea is illegal
+	else if (unit != eArmy && to == eLand) return false; //Fleet move to land is illegal
+	//now moves to only adjacent locations
+	else
+	{
+		result = DoLocationsTouch(A, next);
+	}
 
 }
 
@@ -498,5 +528,10 @@ eLocationType Country::GetLocationType(eLocation A)
 	{
 		return eCoastal;
 	}
+}
+
+bool DoLocationsTouch(eLocation A, eLocation B) 
+{
+	
 }
 
