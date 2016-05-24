@@ -1,6 +1,9 @@
 /*
 Class Name: Country
 Purpose:	The purpose of this class is to hold all the information for a Country throughout the game.
+Public Variables:
+	
+Private Variables:	
 */
 #include "stdafx.h"
 #include <iostream>
@@ -19,7 +22,7 @@ Country::Country(ePlayerCountry A, std::string nameinput)
 {
 
 	//Set the number of units in the start of the set up
-	SetNumOfUnits(A);
+	SetNumOfUnits(0);
 	switch (A) {
 		//Set up all the starting units using the BuildNewUnit interface	
 	case eAustria:
@@ -75,8 +78,8 @@ Country::Country(ePlayerCountry A, std::string nameinput)
 */
 void Country::BuildNewUnit(ePlayerCountry A, eLocation B, eUnitType C) 
 {
-	int i = 0;
-	//is the location allowable to be built at?
+	int i = GetNumOfUnits();
+	//is the location allowable to be built at for that country
 	switch (A)
 	{
 	case eAustria:
@@ -108,7 +111,7 @@ void Country::BuildNewUnit(ePlayerCountry A, eLocation B, eUnitType C)
 			return;
 		}
 	case eItaly:
-		if (B == eVen || B == eRom || B == eVen) break;
+		if (B == eVen || B == eRom || B == eNap) break;
 		else
 		{
 			std::cout << "Build location not allowed.";
@@ -131,19 +134,37 @@ void Country::BuildNewUnit(ePlayerCountry A, eLocation B, eUnitType C)
 	default:
 		break;
 	}
-	//Is the unit type allowable to be built there?
-	//Create the unit
-	do
+	//Is the unit type allowable to be built there based on type and location?
+	eLocationType temp = GetLocationType(B);
+	if ((temp == eLand) && (C != eArmy))
 	{
-		if (countryUnits[i].unitLocation == eBLANK)
+		//ERROR!
+		std::cout << "You cannot build a Fleet on dry land!";
+		return;
+	}
+	else if ((temp == eSea) && (C != eFleet))
+	{
+		//ERROR!
+		std::cout << "You cannot build an Army in the sea!";
+		return;
+	}
+	else //Create the unit
+	{
+		/*
+		if (countryUnits[i].unitLocation == eBLANK) //This line is never true... Thus doesn't create the stuff
 		{
 			countryUnits[i].unitLocation = B;
 			countryUnits[i].unitType = C;
 			countryUnits[i].unitLocationType = GetLocationType(B);
 		}
-		i++;
-	} while (i <= GetNumOfUnits());
+		*/
+		countryUnits[i].unitLocation = B;
+		countryUnits[i].unitType = C;
+		countryUnits[i].unitLocationType = GetLocationType(B);
 
+		i++;
+		SetNumOfUnits(i);
+	}
 }
 
 void Country::SetPlayerCountry(ePlayerCountry A)
@@ -155,20 +176,275 @@ ePlayerCountry Country::GetPlayerCountry()
 	return pCountry;
 }
 
+eLocation Country::ConvertToELocation(int A) { return countryUnits[A].unitLocation; }
+
 /* 
 	This is only called at the creation of the game.
 	The Build and Destroy Unit functions will increment or decrement the
 	number of units from their respective functions
 */
-void Country::SetNumOfUnits(ePlayerCountry A)
+void Country::SetNumOfUnits(int A)
 {
-	if(A != eRussia) numOfUnits = 3;
-	else numOfUnits = 4;
+	numOfUnits = A;
 }
 
-int Country::GetNumOfUnits()
+inline int Country::GetNumOfUnits() { return numOfUnits; }
+
+inline eUnitType Country::GetUnitType(int uNum) { return countryUnits[uNum].unitType; }
+
+
+void Country::PrintAllUnitsInfo(int n)
 {
-	return numOfUnits;
+	for (int i = 0; i < n; i++)
+	{
+		std::cout << " (" << i << ") ";
+		PrintUTypeAsString(countryUnits[i].unitType);
+		std::cout << " ";
+		PrintLocAsString(countryUnits[i].unitLocation);
+		std::cout<< std::endl;
+	}
+}
+
+inline void Country::PrintLocAsString(eLocation A)
+{
+	switch (A)
+	{
+	case eAdr:
+		std::cout << "Adriatic Sea";
+		break;
+	case eAeg:
+		std::cout << "Aegian Sea";
+		break;
+	case eAlb:
+		std::cout << "Albania";
+		break;
+	case eAnk:
+		std::cout << "Ankara";
+		break;
+	case eApu:
+		std::cout << "Apu";
+		break;
+	case eArm:
+		std::cout << "Armenia";
+		break;
+	case eBal:
+		std::cout << "Baltic Sea";
+		break;
+	case eBar:
+		std::cout << "Barents Sea";
+		break;
+	case eBel:
+		std::cout << "Belgium";
+		break;
+	case eBer:
+		std::cout << "Berlin";
+		break;
+	case eBla:
+		std::cout << "Black Sea";
+		break;
+	case eBoh:
+		std::cout << "Bohemia";
+		break;
+	case eBot:
+		std::cout << "Gulf of Bothnia";
+		break;
+	case eBre:
+		std::cout << "Brest";
+		break;
+	case eBud:
+		std::cout << "Budapest";
+		break;
+	case eBul:
+		std::cout << "Bulgaria";
+		break;
+	case eBur:
+		std::cout << "Burgundy";
+		break;
+	case eCly:
+		std::cout << "Clyde";
+		break;
+	case eCon:
+		std::cout << "Constantinople";
+		break;
+	case eDen:
+		std::cout << "Denmark";
+		break;
+	case eEas:
+		std::cout << "Eastern Mediterranean Sea";
+		break;
+	case eEdi:
+		std::cout << "Edinburgh";
+		break;
+	case eEng:
+		std::cout << "English Channel";
+		break;
+	case eFin:
+		std::cout << "Finland";
+		break;
+	case eGal:
+		std::cout << "Galatia";
+		break;
+	case eGas:
+		std::cout << "Gascony";
+		break;
+	case eGoL:
+		std::cout << "Gulf of Lyon";
+		break;
+	case eGre:
+		std::cout << "Greece";
+		break;
+	case eHel:
+		std::cout << "Helgoland Bight";
+		break;
+	case eHol:
+		std::cout << "Holland";
+		break;
+	case eIon:
+		std::cout << "Ionian Sea";
+		break;
+	case eIri:
+		std::cout << "Irish Sea";
+		break;
+	case eKie:
+		std::cout << "Kiel";
+		break;
+	case eLon:
+		std::cout << "London";
+		break;
+	case eLvn:
+		std::cout << "Livonia";
+		break;
+	case eLvp:
+		std::cout << "Liverpool";
+		break;
+	case eMar:
+		std::cout << "Marseille";
+		break;
+	case eMid:
+		std::cout << "Mid-Atlantic Ocean";
+		break;
+	case eMos:
+		std::cout << "Moscow";
+		break;
+	case eMun:
+		std::cout << "Munich";
+		break;
+	case eNaf:
+		std::cout << "North Africa";
+		break;
+	case eNap:
+		std::cout << "Naples";
+		break;
+	case eNAt:
+		std::cout << "North Atlantic";
+		break;
+	case ePar:
+		std::cout << "Paris";
+		break;
+	case ePic:
+		std::cout << "Picardy";
+		break;
+	case ePie:
+		std::cout << "Piedmont";
+		break;
+	case ePor:
+		std::cout << "Portugal";
+		break;
+	case ePru:
+		std::cout << "Prussia";
+		break;
+	case eRom:
+		std::cout << "Rome";
+		break;
+	case eRuh:
+		std::cout << "Ruhr";
+		break;
+	case eRum:
+		std::cout << "Rumania";
+		break;
+	case eSer:
+		std::cout << "Serbia";
+		break;
+	case eSev:
+		std::cout << "Sevastopol";
+		break;
+	case eSil:
+		std::cout << "Silesia";
+		break;
+	case eSka:
+		std::cout << "Skagerrak";
+		break;
+	case eSmy:
+		std::cout << "Smryna";
+		break;
+	case eSpa:
+		std::cout << "Spain";
+		break;
+	case eStP:
+		std::cout << "St Petersburg";
+		break;
+	case eSwe:
+		std::cout << "Sweden";
+		break;
+	case eSyr:
+		std::cout << "Syria";
+		break;
+	case eTri:
+		std::cout << "Trieste";
+		break;
+	case eTun:
+		std::cout << "Tunis";
+		break;
+	case eTus:
+		std::cout << "Tuscany";
+		break;
+	case eTyn:
+		std::cout << "Tyrbennian Sea";
+		break;
+	case eTyr:
+		std::cout << "Tyrolia";
+		break;
+	case eUkr:
+		std::cout << "Ukraine";
+		break;
+	case eVie:
+		std::cout << "Vienna";
+		break;
+	case eVen:
+		std::cout << "Venice";
+		break;
+	case eWal:
+		std::cout << "Wales";
+		break;
+	case eWar:
+		std::cout << "Warsaw";
+		break;
+	case eWes:
+		std::cout << "Western Mediterranean";
+		break;
+	case eYor:
+		std::cout << "York";
+		break;
+	default:
+		std::cout << "INVALID"; // For debugging purposes only right now
+		break;
+	}
+
+}
+
+inline void Country::PrintUTypeAsString(eUnitType A)
+{
+	switch (A)
+	{
+	case eArmy:
+		std::cout << "Army";
+		break;
+	case eFleet:
+		std::cout << "Fleet";
+		break;
+	default:
+		break;
+	}
 }
 
 void Country::SetUnitLocation(eLocation A)
@@ -176,9 +452,83 @@ void Country::SetUnitLocation(eLocation A)
 
 }
 
-void Country::DestroyUnit(ePlayerCountry A, eLocation B)
+/*
+Function:	SetUnitCommands
+Parameters:	
+Purpose:	When the command is to Hold, set the command to hold
+Overloaded:	Y
+*/
+void Country::SetUnitCommands(int unitNum, eLocation A, eUnitCommand B)
+{
+	countryUnits[unitNum].unitCommand = B;
+}
+
+/*
+Function:	SetUnitCommands
+Purpose:	When the command is to Move, set the desired destination location
+*/
+void Country::SetUnitCommands(int unitNum, eLocation currLoc, eUnitCommand uCom, eLocation to)
+{
+	bool result = false;
+	countryUnits[unitNum].unitCommand = uCom;
+	result = IsMoveLegal(unitNum, currLoc, uCom, to);
+	if (result == true)	countryUnits[unitNum].unitTo = to;
+	else
+	{
+		std::cout << "Move is not legal!";
+	}
+	
+}
+
+/*
+Function:	SetUnitCommands
+Purpose:	When the command is to Support Hold or Support Move, set the command.
+*/
+void Country::SetUnitCommands(int unitNum, eLocation A, eUnitCommand B, eLocation next, eUnitVia via)
 {
 
+}
+
+bool Country::IsMoveLegal(int unitNum, eLocation A, eUnitCommand B, eLocation next)
+{
+	eLocationType fromType, toType;
+	eUnitType unit;
+	bool result;
+
+	unit = GetUnitType(unitNum);
+	fromType = GetLocationType(A);
+	toType = GetLocationType(next);
+
+	switch (B)
+	{
+	case(eMove):
+		if (unit != eFleet && toType == eSea) return false; //army move to sea is illegal
+		else if (unit != eArmy && toType == eLand) return false; //Fleet move to land is illegal
+		else //now moves to only adjacent locations
+		{
+			result = DoLocationsTouch(A, next);
+		}
+		break;
+	case(eSupportHold):
+		//Get if the locations touch
+		result = DoLocationsTouch(A, next);
+
+		break;
+	case(eSupportMove):
+		break;
+	case(eConvoy):
+		break;
+	default:
+		break;
+	}
+
+	return result;
+}
+
+void Country::DestroyUnit(ePlayerCountry A, eLocation B)
+{
+	//Destroy is going to be a larger issue... This is because of the need to be able to destroy
+	//a unit in the middle of the array list and restructure the array for now.
 }
 
 eLocationType Country::GetLocationType(eLocation A)
@@ -201,3 +551,9 @@ eLocationType Country::GetLocationType(eLocation A)
 		return eCoastal;
 	}
 }
+
+bool Country::DoLocationsTouch(eLocation A, eLocation B) 
+{
+	return true;
+}
+

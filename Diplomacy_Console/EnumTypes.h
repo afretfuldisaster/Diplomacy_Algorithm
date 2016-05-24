@@ -25,6 +25,21 @@ enum eUnitType
 	eFleet
 };
 
+enum eUnitCommand
+{
+	eHold,
+	eMove,
+	eSupportHold,
+	eSupportMove,
+	eConvoy
+};
+
+enum eUnitVia
+{
+	eViaLand,
+	eViaSea,
+	eViaConvoy
+};
 enum eLocationType
 {
 	eCoastal,
@@ -42,3 +57,4 @@ enum ePlayerCountry
 	eRussia,
 	eTurkey
 };
+
