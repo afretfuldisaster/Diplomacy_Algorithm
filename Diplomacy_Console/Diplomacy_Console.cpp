@@ -103,7 +103,7 @@ int main()
 			std::cout << "Which unit would you like to command? ";
 			std::cin >> input2;
 			temp = std::stoi(input2, nullptr, 10);
-			uLoc = Austria.ConvertToELocation(temp);
+			uLoc = Austria.ConvertToELocation(temp); //Doesn't like this being inline - LNK2019 error
 
 			//Act on that input -- how?
 			std::cout << "What is that unit's order? ";

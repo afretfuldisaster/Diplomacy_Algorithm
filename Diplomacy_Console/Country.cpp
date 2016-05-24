@@ -176,7 +176,7 @@ ePlayerCountry Country::GetPlayerCountry()
 	return pCountry;
 }
 
-inline eLocation Country::ConvertToELocation(int A) { return countryUnits[A].unitLocation; }
+eLocation Country::ConvertToELocation(int A) { return countryUnits[A].unitLocation; }
 
 /* 
 	This is only called at the creation of the game.
@@ -188,10 +188,7 @@ void Country::SetNumOfUnits(int A)
 	numOfUnits = A;
 }
 
-inline int Country::GetNumOfUnits()
-{
-	return numOfUnits;
-}
+inline int Country::GetNumOfUnits() { return numOfUnits; }
 
 inline eUnitType Country::GetUnitType(int uNum) { return countryUnits[uNum].unitType; }
 
@@ -470,12 +467,12 @@ void Country::SetUnitCommands(int unitNum, eLocation A, eUnitCommand B)
 Function:	SetUnitCommands
 Purpose:	When the command is to Move, set the desired destination location
 */
-void Country::SetUnitCommands(int unitNum, eLocation A, eUnitCommand B, eLocation next)
+void Country::SetUnitCommands(int unitNum, eLocation currLoc, eUnitCommand uCom, eLocation to)
 {
 	bool result = false;
-	countryUnits[unitNum].unitCommand = B;
-	result = IsMoveLegal(unitNum, A, B, next);
-	if (result == true)	countryUnits[unitNum].unitTo = next;
+	countryUnits[unitNum].unitCommand = uCom;
+	result = IsMoveLegal(unitNum, currLoc, uCom, to);
+	if (result == true)	countryUnits[unitNum].unitTo = to;
 	else
 	{
 		std::cout << "Move is not legal!";
@@ -483,24 +480,49 @@ void Country::SetUnitCommands(int unitNum, eLocation A, eUnitCommand B, eLocatio
 	
 }
 
+/*
+Function:	SetUnitCommands
+Purpose:	When the command is to Support Hold or Support Move, set the command.
+*/
+void Country::SetUnitCommands(int unitNum, eLocation A, eUnitCommand B, eLocation next, eUnitVia via)
+{
+
+}
+
 bool Country::IsMoveLegal(int unitNum, eLocation A, eUnitCommand B, eLocation next)
 {
-	eLocationType from, to;
+	eLocationType fromType, toType;
 	eUnitType unit;
 	bool result;
 
 	unit = GetUnitType(unitNum);
-	from = GetLocationType(A);
-	to = GetLocationType(next);
+	fromType = GetLocationType(A);
+	toType = GetLocationType(next);
 
-	if (unit != eFleet && to == eSea) return false; //army move to sea is illegal
-	else if (unit != eArmy && to == eLand) return false; //Fleet move to land is illegal
-	//now moves to only adjacent locations
-	else
+	switch (B)
 	{
+	case(eMove):
+		if (unit != eFleet && toType == eSea) return false; //army move to sea is illegal
+		else if (unit != eArmy && toType == eLand) return false; //Fleet move to land is illegal
+		else //now moves to only adjacent locations
+		{
+			result = DoLocationsTouch(A, next);
+		}
+		break;
+	case(eSupportHold):
+		//Get if the locations touch
 		result = DoLocationsTouch(A, next);
+
+		break;
+	case(eSupportMove):
+		break;
+	case(eConvoy):
+		break;
+	default:
+		break;
 	}
 
+	return result;
 }
 
 void Country::DestroyUnit(ePlayerCountry A, eLocation B)
@@ -530,8 +552,8 @@ eLocationType Country::GetLocationType(eLocation A)
 	}
 }
 
-bool DoLocationsTouch(eLocation A, eLocation B) 
+bool Country::DoLocationsTouch(eLocation A, eLocation B) 
 {
-	
+	return true;
 }
 

@@ -38,14 +38,15 @@ public:
 	//void SetUnitMoveTo(eLocation, eLocation, eUnitType);
 	void SetUnitCommands(int, eLocation, eUnitCommand);
 	void SetUnitCommands(int, eLocation, eUnitCommand, eLocation);
+	void SetUnitCommands(int, eLocation, eUnitCommand, eLocation, eUnitVia);
 
 	//Special Functions
 	void BuildNewUnit(ePlayerCountry, eLocation, eUnitType);
 	void DestroyUnit(ePlayerCountry, eLocation);
 	inline void PrintLocAsString(eLocation);
 	inline void PrintUTypeAsString(eUnitType);
-	eLocationType GetLocationType(eLocation A);
-	inline eLocation ConvertToELocation(int);
+	eLocationType GetLocationType(eLocation);
+	eLocation ConvertToELocation(int);
 	bool IsMoveLegal(int, eLocation, eUnitCommand, eLocation);
 	bool DoLocationsTouch(eLocation, eLocation);
 };
