@@ -72,12 +72,65 @@ void preGameSetUp(int numOfPlayers) {
 	}
 }
 
-int main()
+void actCommandInput(Country country)
 {
 	int num, temp;
 	eUnitCommand uCom;
 	eLocation uLoc, uNewLoc;
-	std::string input, input2, input3;
+	std::string input2, input3;
+
+	//Output Austria's units and locations
+	num = country.GetNumOfUnits();
+	country.PrintAllUnitsInfo(num);
+	for (int i = 0; i <= num; i++)
+	{
+		std::cout << "Which unit would you like to command? (q to quit commands) ";
+		std::cin >> input2;
+		if (input2 == "q" || input2 == "Q") break;
+		temp = std::stoi(input2, nullptr, 10);
+		uLoc = country.ConvertToELocation(temp); //Doesn't like this being inline - LNK2019 error
+
+												 //Act on that input -- how?
+		std::cout << "What is that unit's order? ";
+		std::cout << "\n (0) Hold\n (1) Move/Attack\n (2) Support Hold\n (3) Support Move\n (4) Convoy\n";
+		std::cin >> input3;
+
+		//Convert the input from a string to an integer
+		temp = std::stoi(input3, nullptr, 10);
+		uCom = (eUnitCommand)temp--;
+
+		//Act on that input
+		switch (uCom)
+		{
+		case eHold:
+			break;
+		case eMove:
+			std::cout << "Where would you like to move this unit? ";
+			std::cin >> input2;
+
+			//convert input2 to eLocation
+
+			//Set the unit's move command
+			//country.SetUnitCommands(uLoc, uNewLoc, eArmy);
+			break;
+		case eSupportHold:
+			break;
+		case eSupportMove:
+			break;
+		case eConvoy:
+			break;
+		default:
+			break;
+		}
+
+		//Process that input now that enums are defined based on user input.
+	}
+}
+
+int main()
+{
+	int temp;
+	std::string input;
 	eTurn currentTurn = Spring1901;
 
 	preGameSetUp(7);
@@ -97,76 +150,39 @@ int main()
 		}
 		if (input == "Austria" || input == "austria")
 		{
-			//Output Austria's units and locations
-			num = Austria.GetNumOfUnits();
-			Austria.PrintAllUnitsInfo(num);
-			std::cout << "Which unit would you like to command? ";
-			std::cin >> input2;
-			temp = std::stoi(input2, nullptr, 10);
-			uLoc = Austria.ConvertToELocation(temp); //Doesn't like this being inline - LNK2019 error
-
-			//Act on that input -- how?
-			std::cout << "What is that unit's order? ";
-			std::cout << "\n (1) Hold\n (2) Move/Attack\n (3) Support Hold\n (4) Support Move\n (5) Convoy\n";
-			std::cin >> input3;
-
-			//Convert the input from a string to an integer
-			temp = std::stoi(input3, nullptr, 10);
-			uCom = (eUnitCommand) temp--;
-
-			//Act on that input
-			switch (uCom)
-			{
-				case eHold:
-					break;
-				case eMove:
-					std::cout << "Where would you like to move this unit? ";
-					std::cin >> input2;
-					
-					//convert input2 to eLocation
-
-					//Set the unit's move command
-					//Austria.SetUnitMoveTo(uLoc, uNewLoc, eArmy);
-					break;
-				case eSupportHold:
-					break;
-				case eSupportMove:
-					break;
-				case eConvoy:
-					break;
-				default:
-					break;
-			}
-
-			//Process that input now that enums are defined based on user input.
-
+			//do Austria's commands
+			actCommandInput(Austria);
 		}
 		else if (input == "England" || input == "england")
 		{
-			//Output England's units and locations
-			temp = England.GetNumOfUnits();
-			England.PrintAllUnitsInfo(temp);
+			//do England's commands
+			actCommandInput(England);
 		}
 		else if (input == "France" || input == "france")
 		{
 			//do France's commands
+			actCommandInput(France);
 		}
 		else if (input == "Germany" || input == "germany")
 		{
 			//do Germany's commands
+			actCommandInput(Germany);
 		}
 		else if (input == "Italy" || input == "italy")
 		{
 			//do Italy's commands
+			actCommandInput(Italy);
 		}
 		else if (input == "Russia" || input == "russia")
 		{
 			//do Russia's commands
 			std::cout << Russia.GetNumOfUnits();
+			actCommandInput(Russia);
 		}
 		else if (input == "Turkey" || input == "turkey")
 		{
 			//do Turkey's commands
+			actCommandInput(Turkey);
 		}
 		else
 		{
