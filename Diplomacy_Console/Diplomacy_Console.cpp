@@ -6,6 +6,7 @@
 #include <string>
 #include "Country.h"
 #include "EnumTypes.h"
+//#include "LocationConnections.h"
 
 //Create a global Class instance?
 Country Austria;
@@ -79,9 +80,13 @@ void actCommandInput(Country country)
 	eLocation uLoc, uNewLoc;
 	std::string input2, input3;
 
-	//Output Austria's units and locations
 	num = country.GetNumOfUnits();
+	//Output the country's total number of units
+	std::cout << "Total number of units: " << num << std::endl;
+	//Output Country's units and locations
 	country.PrintAllUnitsInfo(num);
+
+	//Cycle through commands for all available units.
 	for (int i = 0; i <= num; i++)
 	{
 		std::cout << "Which unit would you like to command? (q to quit commands) ";
@@ -90,7 +95,7 @@ void actCommandInput(Country country)
 		temp = std::stoi(input2, nullptr, 10);
 		uLoc = country.ConvertToELocation(temp); //Doesn't like this being inline - LNK2019 error
 
-												 //Act on that input -- how?
+		//Get the input for the unit's order
 		std::cout << "What is that unit's order? ";
 		std::cout << "\n (0) Hold\n (1) Move/Attack\n (2) Support Hold\n (3) Support Move\n (4) Convoy\n";
 		std::cin >> input3;
@@ -99,28 +104,42 @@ void actCommandInput(Country country)
 		temp = std::stoi(input3, nullptr, 10);
 		uCom = (eUnitCommand)temp--;
 
-		//Act on that input
+		//Act on that input -- NEEDS WORK!!!
 		switch (uCom)
 		{
-		case eHold:
-			break;
-		case eMove:
-			std::cout << "Where would you like to move this unit? ";
-			std::cin >> input2;
+			case eHold:
+				country.SetUnitCommands(num, uLoc, uCom);
+				break;
+			case eMove:
+				/* Ok so free thinking right now... We can do 1 of 2 options here:
+				1. We can list the possible locations to move to in a list and do the rule checking ahead of giving the player the option.
+				2. We can free form this and let the player say anything and then tell them they're wrong...
 
-			//convert input2 to eLocation
+				What's the best program choice...? I'd go with 1.
 
-			//Set the unit's move command
-			//country.SetUnitCommands(uLoc, uNewLoc, eArmy);
-			break;
-		case eSupportHold:
-			break;
-		case eSupportMove:
-			break;
-		case eConvoy:
-			break;
-		default:
-			break;
+				So if we go with 1 then we have to list out the possible moves first, then ask for user input.
+				*/
+				//Go to the Country and, using the unit selected, have that function call LocationConnections' PrintPossibleMoves
+				country.GetPossibleMoves(num, uLoc);
+				
+				std::cout << "Where would you like to move this unit? ";
+				std::cin >> input2;
+
+
+
+
+
+				//Set the unit's move command
+				//country.SetUnitCommands(num, uLoc, uNewLoc, eArmy);
+				break;
+			case eSupportHold:
+				break;
+			case eSupportMove:
+				break;
+			case eConvoy:
+				break;
+			default:
+				break;
 		}
 
 		//Process that input now that enums are defined based on user input.
@@ -140,7 +159,7 @@ int main()
 
 	//start game loop now
 	while (1) {
-		std::cout << "Type 'Exit' when ready to quit.\nWhen ready please type your country name to enter commands: ";
+		std::cout << "Type 'Exit' when ready to quit.\nType your country name to enter commands: ";
 		std::cin >> input;
 
 		if (input == "exit" || input == "Exit" || input == "EXIT")
@@ -151,38 +170,45 @@ int main()
 		if (input == "Austria" || input == "austria")
 		{
 			//do Austria's commands
+			system("cls");
 			actCommandInput(Austria);
+			system("cls");
 		}
 		else if (input == "England" || input == "england")
 		{
 			//do England's commands
 			actCommandInput(England);
+			system("cls");
 		}
 		else if (input == "France" || input == "france")
 		{
 			//do France's commands
 			actCommandInput(France);
+			system("cls");
 		}
 		else if (input == "Germany" || input == "germany")
 		{
 			//do Germany's commands
 			actCommandInput(Germany);
+			system("cls");
 		}
 		else if (input == "Italy" || input == "italy")
 		{
 			//do Italy's commands
 			actCommandInput(Italy);
+			system("cls");
 		}
 		else if (input == "Russia" || input == "russia")
 		{
 			//do Russia's commands
-			std::cout << Russia.GetNumOfUnits();
 			actCommandInput(Russia);
+			system("cls");
 		}
 		else if (input == "Turkey" || input == "turkey")
 		{
 			//do Turkey's commands
 			actCommandInput(Turkey);
+			system("cls");
 		}
 		else
 		{

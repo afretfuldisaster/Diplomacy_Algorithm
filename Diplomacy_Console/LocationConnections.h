@@ -6,3 +6,6 @@
 //const bool **ptrCnct = new bool*[75]; //default fill should be false 
 
 const bool connected[75][75] = {};
+
+void ReturnPossibleMoves();
+void PrintPossibleMoves(eLocation, eUnitType);

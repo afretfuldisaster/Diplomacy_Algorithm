@@ -28,8 +28,8 @@ public:
 	//Get Functions
 	ePlayerCountry GetPlayerCountry(void);
 	inline int GetNumOfUnits(void);
-	void PrintAllUnitsInfo(int);
 	inline eUnitType GetUnitType(int);
+	void GetPossibleMoves(int, eLocation);
 
 	//Set Functions
 	void SetPlayerCountry(ePlayerCountry);
@@ -45,6 +45,9 @@ public:
 	void DestroyUnit(ePlayerCountry, eLocation);
 	inline void PrintLocAsString(eLocation);
 	inline void PrintUTypeAsString(eUnitType);
+	inline void PrintUCommandAsString(eUnitCommand);
+	void PrintAllUnitsInfo(int);
+	void PrintAllUnitsCommands(int);
 	eLocationType GetLocationType(eLocation);
 	eLocation ConvertToELocation(int);
 	bool IsMoveLegal(int, eLocation, eUnitCommand, eLocation);

@@ -8,6 +8,7 @@ Private Variables:
 #include "stdafx.h"
 #include <iostream>
 #include "Country.h"
+#include "LocationConnections.h"
 
 //Standard Constructors and Destructors - No use
 Country::Country()
@@ -202,6 +203,22 @@ void Country::PrintAllUnitsInfo(int n)
 		std::cout << " ";
 		PrintLocAsString(countryUnits[i].unitLocation);
 		std::cout<< std::endl;
+	}
+}
+
+void Country::PrintAllUnitsCommands(int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		std::cout << " (" << i << ") ";
+		PrintUTypeAsString(countryUnits[i].unitType);
+		std::cout << " ";
+		PrintLocAsString(countryUnits[i].unitLocation);
+		std::cout << " ";
+		PrintUCommandAsString(countryUnits[i].unitCommand);
+		std::cout << " ";
+		PrintLocAsString(countryUnits[i].unitTo);
+		std::cout << std::endl;
 	}
 }
 
@@ -447,6 +464,21 @@ inline void Country::PrintUTypeAsString(eUnitType A)
 	}
 }
 
+inline void Country::PrintUCommandAsString(eUnitCommand A)
+{
+	switch (A)
+	{
+	case eHold:
+		std::cout << "Hold";
+		break;
+	case eMove:
+		std::cout << "Move";
+		break;
+	default:
+		break;
+	}
+}
+
 void Country::SetUnitLocation(eLocation A)
 {
 
@@ -469,15 +501,8 @@ Purpose:	When the command is to Move, set the desired destination location
 */
 void Country::SetUnitCommands(int unitNum, eLocation currLoc, eUnitCommand uCom, eLocation to)
 {
-	bool result = false;
 	countryUnits[unitNum].unitCommand = uCom;
-	result = IsMoveLegal(unitNum, currLoc, uCom, to);
-	if (result == true)	countryUnits[unitNum].unitTo = to;
-	else
-	{
-		std::cout << "Move is not legal!";
-	}
-	
+	countryUnits[unitNum].unitTo = to;
 }
 
 /*
@@ -557,3 +582,10 @@ bool Country::DoLocationsTouch(eLocation A, eLocation B)
 	return true;
 }
 
+void Country::GetPossibleMoves(int unitNum, eLocation currLoc)
+{
+	eUnitType uType;
+
+	uType = GetUnitType(unitNum);
+	PrintPossibleMoves(currLoc, uType);
+}
