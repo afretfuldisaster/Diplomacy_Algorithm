@@ -111,26 +111,17 @@ void actCommandInput(Country country)
 				country.SetUnitCommands(num, uLoc, uCom);
 				break;
 			case eMove:
-				/* Ok so free thinking right now... We can do 1 of 2 options here:
-				1. We can list the possible locations to move to in a list and do the rule checking ahead of giving the player the option.
-				2. We can free form this and let the player say anything and then tell them they're wrong...
-
-				What's the best program choice...? I'd go with 1.
-
-				So if we go with 1 then we have to list out the possible moves first, then ask for user input.
-				*/
+				std::cout << "Where would you like to move this unit? ";
 				//Go to the Country and, using the unit selected, have that function call LocationConnections' PrintPossibleMoves
 				country.GetPossibleMoves(num, uLoc);
-				
-				std::cout << "Where would you like to move this unit? ";
 				std::cin >> input2;
 
-
-
+				//Convert input to uNewLoc in eLocation format
+				uNewLoc = eVen;
 
 
 				//Set the unit's move command
-				//country.SetUnitCommands(num, uLoc, uNewLoc, eArmy);
+				country.SetUnitCommands(num, uLoc, uCom, uNewLoc);
 				break;
 			case eSupportHold:
 				break;

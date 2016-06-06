@@ -33,14 +33,21 @@ void PrintPossibleMoves(eLocation A, eUnitType B)
 {
 	switch (A) 
 	{
-		case eLon:
+		case eTri:
 			if (B == eFleet)
 			{
-
+				std::cout << "(0) Venice " << std::endl;
+				std::cout << "(1) Albania " << std::endl;
+				std::cout << "(2) Adriatic Sea " << std::endl;
 			}
 			else if (B == eArmy)
 			{
-
+				std::cout << "(0) Venice " << std::endl;
+				std::cout << "(1) Albania " << std::endl;
+				std::cout << "(2) Tyrolia " << std::endl;
+				std::cout << "(3) Vienna " << std::endl;
+				std::cout << "(4) Budapest " << std::endl;
+				std::cout << "(5) Serbia " << std::endl;
 			}
 			break;
 		case eBal:
